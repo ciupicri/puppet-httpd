@@ -1,15 +1,28 @@
-class httpd {
+class httpd::install {
     package { "httpd":
         ensure => installed,
     }
+}
+
+class httpd::config {
+    Config_file {
+        require => Class["httpd::install"],
+        notify  => Class["httpd::service"],
+    }
 
     config_file { "/etc/httpd/conf/httpd.conf":
-        source => "/etc/httpd/conf/httpd.conf",
+        source  => "/etc/httpd/conf/httpd.conf",
+        recurse => inf,
     }
+}
 
+class httpd::service {
     service { "httpd":
-        ensure => running,
+        ensure  => running,
+        require => Class["httpd::config"],
     }
+}
 
-    Package["httpd"] -> Config_file["/etc/httpd/conf/httpd.conf"] ~> Service["httpd"]
+class httpd {
+    include httpd::install, httpd::config, httpd::service
 }
