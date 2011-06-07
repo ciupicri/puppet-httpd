@@ -6,8 +6,8 @@ class httpd::install {
 
 class httpd::config {
     Config_file {
-        require => Class["httpd::install"],
-        notify  => Class["httpd::service"],
+        require => Class["install"],
+        notify  => Class["service"],
     }
 
     config_file { "/etc/httpd/conf/httpd.conf":
@@ -19,10 +19,10 @@ class httpd::config {
 class httpd::service {
     service { "httpd":
         ensure  => running,
-        require => Class["httpd::config"],
+        require => Class["config"],
     }
 }
 
 class httpd {
-    include httpd::install, httpd::config, httpd::service
+    include install, config, service
 }
