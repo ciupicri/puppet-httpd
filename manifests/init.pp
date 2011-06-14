@@ -32,3 +32,9 @@ class httpd::service {
 class httpd {
     include install, config, service
 }
+
+class httpd::wsgi inherits httpd {
+    package { "mod_wsgi":
+        ensure => installed,
+    }
+}
