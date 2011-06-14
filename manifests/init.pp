@@ -12,7 +12,6 @@ class httpd::config {
 
     config_file { "/etc/httpd/conf/httpd.conf":
         source  => "/etc/httpd/conf/httpd.conf",
-        recurse => inf,
     }
 }
 
