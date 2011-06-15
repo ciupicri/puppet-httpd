@@ -36,8 +36,10 @@ class httpd {
     include install, config, service
 }
 
-class httpd::wsgi inherits httpd {
-    package { "mod_wsgi":
-        ensure => installed,
+class httpd::module($module) {
+    package { "mod_$module":
+        ensure  => installed,
+        require => Class["install"],
+        notify  => Class["service"],
     }
 }
