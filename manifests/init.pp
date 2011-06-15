@@ -17,8 +17,11 @@ class httpd::config {
         notify  => Class["service"],
     }
 
-    config_file { "/etc/httpd/conf/httpd.conf":
-        source  => "/etc/httpd/conf/httpd.conf",
+    config_file {
+        "/etc/httpd/conf/httpd.conf":
+            source  => "/etc/httpd/conf/httpd.conf";
+        "/etc/sysconfig/httpd":
+            source  => "/etc/sysconfig/httpd";
     }
 }
 
