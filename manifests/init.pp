@@ -1,4 +1,5 @@
-class httpd($virtualhosting = false) {
-    include install, service
+class httpd($enable = true, $virtualhosting = false) {
+    include install
     class { "config": virtualhosting => $virtualhosting }
+    class { "service": enable => $enable }
 }

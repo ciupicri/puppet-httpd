@@ -1,6 +1,6 @@
-class httpd::service {
+class httpd::service($enable = true) {
     service { "httpd":
-        ensure  => running,
+        ensure  => $enable,
         require => Class["httpd::config"],
     }
 }
